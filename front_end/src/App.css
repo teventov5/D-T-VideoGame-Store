@@ -1,0 +1,11 @@
+body {
+    background-color: #1f143d;
+}
+
+.App {
+    position: relative;
+}
+
+.minHeightClass {
+    min-height: 100vh;
+}

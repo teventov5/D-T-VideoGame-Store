@@ -1,0 +1,21 @@
+.cartGameListItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cartGameListItem .removeGameButton {
+  height: 30px;
+  margin-left: 10px;
+  background-color: red;
+  font-weight: bold;
+}
+.cartGameListItem .removeGameButton:hover {
+  border-bottom: #28a745 1px solid;
+  cursor: pointer;
+}
+
+.cartGameListItem p {
+  font-size: larger;
+  cursor: pointer;
+  color: #fff;
+}

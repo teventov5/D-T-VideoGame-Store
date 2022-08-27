@@ -1,0 +1,46 @@
+.gameCard .title {
+    padding-top: 15px;
+    font-size: 50px;
+}
+
+.gameCard .gameCardWrapper {
+    max-width: fit-content;
+    border: 5px solid white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    padding: 10px;
+    margin-top: 100px;
+}
+
+.gameCard .picDiv img {
+    width: 100%;
+    margin-right: 40px;
+}
+
+.gameCard .gameCardWrapper .detailsDiv {
+    display: block;
+    color: #fff;
+    text-align: center;
+}
+
+.gameCard .gameCardWrapper .detailsDiv h2 {
+    margin-top: 50px;
+}
+
+.descriptionDiv {
+    max-width: 768px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    color: #fff;
+    text-align: left;
+}
+
+@media only screen and (min-width: 768px) {
+    .gameCard .picDiv img {
+        max-width: 480px;
+    }
+}
