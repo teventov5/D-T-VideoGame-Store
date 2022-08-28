@@ -1,0 +1,107 @@
+dotnet new webapi -o backend
+
+
+_______________commands that have to be runned once per computer__________________________________________
+
+
+dotnet tool install --global dotnet-aspnet-codegenerator
+
+dotnet tool install --global dotnet-ef
+
+
+
+_____________________________________________________________________________________________________________
+
+
+
+התקנות שיש לבצע לכל פרוייקט ופרוייקט שוב מחדש (גם אם עשינו בעבר בפרוייקט אחר):
+
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+___________________________________________________________________________________________________
+
+
+---------------------------------creates models objects based on our database tables-------------------
+
+dotnet ef dbcontext scaffold "Server=localhost;Database=video_games;Trusted_Connection=False;password=1234;user=sa1;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+_______________________________________________________________________________________________________
+
+
+
+-----------------------add to addsettings.json (below AllowedHosts)------------------------------------
+
+  "ConnectionStrings": {
+    "video_gamesContext": "Server=localhost;Database=video_games;Trusted_Connection=False;password=1234;user=sa1;"
+  }
+  
+  
+___________________________________________________________________________________________________
+
+----------------------- add to program.cs---------------------------
+
+------at the first line add two imports:
+
+using backend.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+-------and one line before: var app = builder.Build() add the folowing:
+
+builder.Services.AddDbContext<video_gamesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("video_gamesContext") ?? throw new InvalidOperationException("Connection string 'video_gamesContext' not found.")));
+
+_____________________________________________________________________________________________________________________
+
+------creating the controllers for each table:
+
+our tables:
+-- app_user
+-- game
+-- game_platform
+-- game_publisher
+-- genre
+-- platform
+-- publisher
+
+---the commands:
+
+
+dotnet-aspnet-codegenerator controller -name App_usersController -async -api -m AppUser -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name GamesController -async -api -m Game -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name Game_platformsController -async -api -m GamePlatform -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name Game_publishersController -async -api -m GamePublisher -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name GenresController -async -api -m Genre -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name PlatformsController -async -api -m Platform -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name PublishersController -async -api -m Publisher -dc video_gamesContext -outDir Controllers
+
+dotnet-aspnet-codegenerator controller -name AppUserGamePlatformController -async -api -m AppUserGamePlatform -dc video_gamesContext -outDir Controllers
+
+
+
+_____________________________________________________________________________________________________________________
+
+-------------------------- To run the dotnet server:-----------------------------------
+
+
+dotnet watch run
+
+
+___________________________________________________________________________________________________
+
+-------------now we can use the swagger gui and send api requests
+
+--------------example for api request:
+
+https://localhost:7210/api/App_users
+
